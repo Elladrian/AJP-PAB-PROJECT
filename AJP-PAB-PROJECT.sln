@@ -5,6 +5,13 @@ VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialHelper", "FinancialHelper\FinancialHelper.csproj", "{F9A3DE56-1D0B-4511-A9E6-C0679F775411}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additional Files", "Additional Files", "{41EFD1D9-EF8B-4DB7-B29A-5308909387A0}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		OLEKSII.HUDZISHEVSKYI.PROJEKT.docx = OLEKSII.HUDZISHEVSKYI.PROJEKT.docx
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
