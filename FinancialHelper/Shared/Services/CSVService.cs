@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Encodings;
 
 namespace FinancialHelper.Shared.Services
 {
@@ -26,11 +27,13 @@ namespace FinancialHelper.Shared.Services
 
         public List<BankData> GetDataFromFile(string path)
         {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
             List<BankData> bankData = new(); 
 
             CsvConfiguration csvConfig = new(CultureInfo.InvariantCulture)
             {
-                Encoding = Encoding.Default,
+                Encoding = Encoding.GetEncoding("windows-1250"),
                 HasHeaderRecord = true,
                 Delimiter = ",",
                 MemberTypes = MemberTypes.Properties,
@@ -38,8 +41,8 @@ namespace FinancialHelper.Shared.Services
                 MissingFieldFound = null,
             };
 
-            using (StreamReader streamReader = new(path, Encoding.Default))
-                using(CsvReader csvReader = new(streamReader, csvConfig))
+            using (StreamReader streamReader = new(path, Encoding.GetEncoding("windows-1250")))
+            using (CsvReader csvReader = new(streamReader, csvConfig))
             {
                 bankData = csvReader.GetRecords<BankData>().ToList();
                 Debug.WriteLine($"Rows imported: {bankData.Count}");
