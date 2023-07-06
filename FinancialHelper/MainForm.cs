@@ -4,6 +4,8 @@ using FinancialHelper.Shared;
 using FinancialHelper.Shared.Contracts;
 using FinancialHelper.Shared.Services;
 using System.ComponentModel;
+using System.Data;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace FinancialHelper
 {
@@ -308,6 +310,61 @@ namespace FinancialHelper
                     MessageBox.Show($"Error occured upon modificating data category. More details:\n{ex.Message}", "Error");
                 }
             }
+        }
+
+        private void submitDateRangeButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (fromDateTimePicker.Value < toDateTimePicker.Value)
+                {
+                    using (CategoryService categoryService = new CategoryService())
+                    {
+                        var result = categoryService.GetCategoryChartDatas(
+                            fromDateTimePicker.Value,
+                            toDateTimePicker.Value,
+                            loggedUserId);
+
+
+                        foreach(var series in categoriesChart.Series)
+                        {
+                            series.Points.Clear();
+                        }
+                        categoriesChart.Series.Clear();
+                        categoriesChart.Titles.Clear();
+
+                        categoriesChart.Titles.Add("Category Chart");
+                        foreach (var data in result)
+                        {
+                            if(data.AmountMinus != 0)
+                            {
+                                categoriesChart.Series.Add(new Series(data.Name == null ? "uncategorized" + " (minus)" : data.Name + " (minus)"));
+                                categoriesChart.Series[data.Name == null ? "uncategorized" + " (minus)" : data.Name + " (minus)"].IsValueShownAsLabel = true;
+                                categoriesChart.Series[data.Name == null ? "uncategorized" + " (minus)" : data.Name + " (minus)"].Points.AddXY(data.Name == null ? " " : data.Name, data.AmountMinus);
+                            }
+
+                            if(data.AmountPlus != 0)
+                            {
+                                categoriesChart.Series.Add(new Series(data.Name == null ? "uncategorized" + " (plus)" : data.Name + " (plus)"));
+                                categoriesChart.Series[data.Name == null ? "uncategorized" + " (plus)" : data.Name + " (plus)"].IsValueShownAsLabel = true;
+                                categoriesChart.Series[data.Name == null ? "uncategorized" + " (plus)" : data.Name + " (plus)"].Points.AddXY(data.Name == null ? " " : data.Name, data.AmountPlus);
+                            }
+                        }
+
+                        categoriesChart.ChartAreas["ChartArea1"].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep45;
+                        categoriesChart.ChartAreas["ChartArea1"].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.LabelsAngleStep45;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Please select correct date range!", "Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occured upon generating chart. More details:\n{ex.Message}", "Error");
+            }
+
         }
     }
 }

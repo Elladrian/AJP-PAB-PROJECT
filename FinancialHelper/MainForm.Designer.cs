@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             tabControl = new TabControl();
             profilePage = new TabPage();
             importPage = new TabPage();
@@ -74,6 +76,11 @@
             transactionDescriptionAdditional7DataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             profileBankDataBindingSource = new BindingSource(components);
             statisticsPage = new TabPage();
+            categoriesChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            rangeDataGroupBox = new GroupBox();
+            submitDateRangeButton = new Button();
+            toDateTimePicker = new DateTimePicker();
+            fromDateTimePicker = new DateTimePicker();
             categoriesPage = new TabPage();
             categoriesDataGridView = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -90,10 +97,6 @@
             newCategoryCommentaryRichTextBox = new RichTextBox();
             submitCategoryButton = new Button();
             newCategoryNameTextBox = new TextBox();
-            rangeDataGroupBox = new GroupBox();
-            fromDateTimePicker = new DateTimePicker();
-            toDateTimePicker = new DateTimePicker();
-            submitDateRangeButton = new Button();
             tabControl.SuspendLayout();
             importPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bankDataDataGridView).BeginInit();
@@ -102,12 +105,13 @@
             ((System.ComponentModel.ISupportInitialize)profileDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)profileBankDataBindingSource).BeginInit();
             statisticsPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)categoriesChart).BeginInit();
+            rangeDataGroupBox.SuspendLayout();
             categoriesPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)categoriesDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)categoryBindingSource).BeginInit();
             modifyCategyGroupBox.SuspendLayout();
             addNewCategoryGroupBox.SuspendLayout();
-            rangeDataGroupBox.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl
@@ -535,6 +539,7 @@
             // 
             // statisticsPage
             // 
+            statisticsPage.Controls.Add(categoriesChart);
             statisticsPage.Controls.Add(rangeDataGroupBox);
             statisticsPage.Location = new Point(4, 34);
             statisticsPage.Name = "statisticsPage";
@@ -542,6 +547,55 @@
             statisticsPage.TabIndex = 4;
             statisticsPage.Text = "Your Statistics";
             statisticsPage.UseVisualStyleBackColor = true;
+            // 
+            // categoriesChart
+            // 
+            categoriesChart.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            chartArea1.Name = "ChartArea1";
+            categoriesChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            categoriesChart.Legends.Add(legend1);
+            categoriesChart.Location = new Point(9, 178);
+            categoriesChart.Name = "categoriesChart";
+            categoriesChart.Size = new Size(1171, 590);
+            categoriesChart.TabIndex = 1;
+            categoriesChart.Text = "Categories Chart";
+            // 
+            // rangeDataGroupBox
+            // 
+            rangeDataGroupBox.Controls.Add(submitDateRangeButton);
+            rangeDataGroupBox.Controls.Add(toDateTimePicker);
+            rangeDataGroupBox.Controls.Add(fromDateTimePicker);
+            rangeDataGroupBox.Location = new Point(3, 3);
+            rangeDataGroupBox.Name = "rangeDataGroupBox";
+            rangeDataGroupBox.Size = new Size(448, 169);
+            rangeDataGroupBox.TabIndex = 0;
+            rangeDataGroupBox.TabStop = false;
+            rangeDataGroupBox.Text = "Date Range";
+            // 
+            // submitDateRangeButton
+            // 
+            submitDateRangeButton.Location = new Point(6, 91);
+            submitDateRangeButton.Name = "submitDateRangeButton";
+            submitDateRangeButton.Size = new Size(436, 59);
+            submitDateRangeButton.TabIndex = 2;
+            submitDateRangeButton.Text = "Submit";
+            submitDateRangeButton.UseVisualStyleBackColor = true;
+            submitDateRangeButton.Click += submitDateRangeButton_Click;
+            // 
+            // toDateTimePicker
+            // 
+            toDateTimePicker.Location = new Point(236, 32);
+            toDateTimePicker.Name = "toDateTimePicker";
+            toDateTimePicker.Size = new Size(200, 33);
+            toDateTimePicker.TabIndex = 1;
+            // 
+            // fromDateTimePicker
+            // 
+            fromDateTimePicker.Location = new Point(6, 32);
+            fromDateTimePicker.Name = "fromDateTimePicker";
+            fromDateTimePicker.Size = new Size(200, 33);
+            fromDateTimePicker.TabIndex = 0;
             // 
             // categoriesPage
             // 
@@ -703,41 +757,6 @@
             newCategoryNameTextBox.TabIndex = 0;
             newCategoryNameTextBox.TextChanged += newCategoryNameTextBox_TextChanged;
             // 
-            // rangeDataGroupBox
-            // 
-            rangeDataGroupBox.Controls.Add(submitDateRangeButton);
-            rangeDataGroupBox.Controls.Add(toDateTimePicker);
-            rangeDataGroupBox.Controls.Add(fromDateTimePicker);
-            rangeDataGroupBox.Location = new Point(3, 3);
-            rangeDataGroupBox.Name = "rangeDataGroupBox";
-            rangeDataGroupBox.Size = new Size(448, 169);
-            rangeDataGroupBox.TabIndex = 0;
-            rangeDataGroupBox.TabStop = false;
-            rangeDataGroupBox.Text = "Date Range";
-            // 
-            // fromDateTimePicker
-            // 
-            fromDateTimePicker.Location = new Point(6, 32);
-            fromDateTimePicker.Name = "fromDateTimePicker";
-            fromDateTimePicker.Size = new Size(200, 33);
-            fromDateTimePicker.TabIndex = 0;
-            // 
-            // toDateTimePicker
-            // 
-            toDateTimePicker.Location = new Point(236, 32);
-            toDateTimePicker.Name = "toDateTimePicker";
-            toDateTimePicker.Size = new Size(200, 33);
-            toDateTimePicker.TabIndex = 1;
-            // 
-            // submitDateRangeButton
-            // 
-            submitDateRangeButton.Location = new Point(6, 91);
-            submitDateRangeButton.Name = "submitDateRangeButton";
-            submitDateRangeButton.Size = new Size(436, 59);
-            submitDateRangeButton.TabIndex = 2;
-            submitDateRangeButton.Text = "Submit";
-            submitDateRangeButton.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -757,6 +776,8 @@
             ((System.ComponentModel.ISupportInitialize)profileDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)profileBankDataBindingSource).EndInit();
             statisticsPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)categoriesChart).EndInit();
+            rangeDataGroupBox.ResumeLayout(false);
             categoriesPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)categoriesDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)categoryBindingSource).EndInit();
@@ -764,7 +785,6 @@
             modifyCategyGroupBox.PerformLayout();
             addNewCategoryGroupBox.ResumeLayout(false);
             addNewCategoryGroupBox.PerformLayout();
-            rangeDataGroupBox.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -834,5 +854,6 @@
         private Button submitDateRangeButton;
         private DateTimePicker toDateTimePicker;
         private DateTimePicker fromDateTimePicker;
+        private System.Windows.Forms.DataVisualization.Charting.Chart categoriesChart;
     }
 }

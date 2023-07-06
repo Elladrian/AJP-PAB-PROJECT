@@ -1,10 +1,31 @@
 ﻿using FinancialHelper.Entities;
 using FinancialHelper.Shared.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinancialHelper.Shared.Services
 {
     public class CategoryService : ICategoryService
     {
+        public List<CategoryChartData> GetCategoryChartDatas(DateTime from, DateTime to, int userId)
+        {
+            using(DatabaseContext databaseContext = new())
+            {
+                var result = databaseContext.BankDatas
+                    .Include(bd => bd.Category)
+                    .Where(bd => bd.UserId == userId && (bd.ValueDate >= from && bd.ValueDate <= to))
+                    .GroupBy(bd => bd.Category!.Name)
+                    .Select(bd => new CategoryChartData()
+                    {
+                        Name = bd.Key,
+                        AmountPlus = bd.Where(s => s.Amount > 0).Sum(s => (double)s.Amount),
+                        AmountMinus = bd.Where(s => s.Amount < 0).Sum(s => (double)s.Amount),
+                    })
+                    .ToList();
+
+                return result;
+            }
+        }
+
         public Category CreateNewCategory(string name, string commentary, int userId)
         {
             using(DatabaseContext databaseContext = new())
