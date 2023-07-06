@@ -3,6 +3,7 @@ using System;
 using FinancialHelper.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinancialHelper.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230706072946_category")]
+    partial class category
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
@@ -26,7 +29,7 @@ namespace FinancialHelper.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Currency")
@@ -81,7 +84,7 @@ namespace FinancialHelper.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BankDatas", (string)null);
+                    b.ToTable("BankDatas");
                 });
 
             modelBuilder.Entity("FinancialHelper.Entities.Category", b =>
@@ -105,7 +108,7 @@ namespace FinancialHelper.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("FinancialHelper.Entities.User", b =>
@@ -130,16 +133,14 @@ namespace FinancialHelper.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("FinancialHelper.Entities.BankData", b =>
                 {
                     b.HasOne("FinancialHelper.Entities.Category", "Category")
                         .WithMany("BankDatas")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("FinancialHelper.Entities.User", "User")
                         .WithMany("BankDatas")

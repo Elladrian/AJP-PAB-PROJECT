@@ -55,7 +55,9 @@
             searchTextBox = new TextBox();
             searchButton = new Button();
             profileDataGridView = new DataGridView();
+            CategorySelect = new DataGridViewComboBoxColumn();
             idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            Category = new DataGridViewTextBoxColumn();
             operationDateDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             valueDateDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             transactionTypeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
@@ -72,6 +74,26 @@
             transactionDescriptionAdditional7DataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             profileBankDataBindingSource = new BindingSource(components);
             statisticsPage = new TabPage();
+            categoriesPage = new TabPage();
+            categoriesDataGridView = new DataGridView();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            commentaryDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            categoryBindingSource = new BindingSource(components);
+            modifyCategyGroupBox = new GroupBox();
+            modifyCategoryNameTextBox = new TextBox();
+            modifyCategoryCommentaryRichTextBox = new RichTextBox();
+            deleteCategoryButton = new Button();
+            modifyCategoryButton = new Button();
+            modifyCategoryIdTextBox = new TextBox();
+            addNewCategoryGroupBox = new GroupBox();
+            newCategoryCommentaryRichTextBox = new RichTextBox();
+            submitCategoryButton = new Button();
+            newCategoryNameTextBox = new TextBox();
+            rangeDataGroupBox = new GroupBox();
+            fromDateTimePicker = new DateTimePicker();
+            toDateTimePicker = new DateTimePicker();
+            submitDateRangeButton = new Button();
             tabControl.SuspendLayout();
             importPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bankDataDataGridView).BeginInit();
@@ -79,6 +101,13 @@
             dataPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)profileDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)profileBankDataBindingSource).BeginInit();
+            statisticsPage.SuspendLayout();
+            categoriesPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)categoriesDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)categoryBindingSource).BeginInit();
+            modifyCategyGroupBox.SuspendLayout();
+            addNewCategoryGroupBox.SuspendLayout();
+            rangeDataGroupBox.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl
@@ -88,18 +117,19 @@
             tabControl.Controls.Add(importPage);
             tabControl.Controls.Add(dataPage);
             tabControl.Controls.Add(statisticsPage);
+            tabControl.Controls.Add(categoriesPage);
             tabControl.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             tabControl.Location = new Point(12, 12);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(1200, 660);
+            tabControl.Size = new Size(1200, 809);
             tabControl.TabIndex = 0;
             // 
             // profilePage
             // 
             profilePage.Location = new Point(4, 34);
             profilePage.Name = "profilePage";
-            profilePage.Size = new Size(1192, 622);
+            profilePage.Size = new Size(1192, 771);
             profilePage.TabIndex = 5;
             profilePage.Text = "Your profile";
             profilePage.UseVisualStyleBackColor = true;
@@ -113,7 +143,7 @@
             importPage.Location = new Point(4, 34);
             importPage.Name = "importPage";
             importPage.Padding = new Padding(3);
-            importPage.Size = new Size(1192, 622);
+            importPage.Size = new Size(1192, 771);
             importPage.TabIndex = 2;
             importPage.Text = "Import Data";
             importPage.UseVisualStyleBackColor = true;
@@ -150,11 +180,12 @@
             bankDataDataGridView.Columns.AddRange(new DataGridViewColumn[] { operationDateDataGridViewTextBoxColumn, valueDateDataGridViewTextBoxColumn, transactionTypeDataGridViewTextBoxColumn, amountDataGridViewTextBoxColumn, currencyDataGridViewTextBoxColumn, saldoAfterTransactionDataGridViewTextBoxColumn, transactionDescriptionDataGridViewTextBoxColumn, transactionDescriptionAdditional1DataGridViewTextBoxColumn, transactionDescriptionAdditional2DataGridViewTextBoxColumn, transactionDescriptionAdditional3DataGridViewTextBoxColumn, transactionDescriptionAdditional4DataGridViewTextBoxColumn, transactionDescriptionAdditional5DataGridViewTextBoxColumn, transactionDescriptionAdditional6DataGridViewTextBoxColumn, transactionDescriptionAdditional7DataGridViewTextBoxColumn });
             bankDataDataGridView.DataSource = bankDataBindingSource;
             bankDataDataGridView.Location = new Point(6, 77);
+            bankDataDataGridView.MultiSelect = false;
             bankDataDataGridView.Name = "bankDataDataGridView";
             bankDataDataGridView.ReadOnly = true;
             bankDataDataGridView.RowTemplate.Height = 25;
             bankDataDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            bankDataDataGridView.Size = new Size(1180, 549);
+            bankDataDataGridView.Size = new Size(1180, 688);
             bankDataDataGridView.TabIndex = 1;
             // 
             // operationDateDataGridViewTextBoxColumn
@@ -305,9 +336,9 @@
             dataPage.Controls.Add(profileDataGridView);
             dataPage.Location = new Point(4, 34);
             dataPage.Name = "dataPage";
-            dataPage.Size = new Size(1192, 622);
+            dataPage.Size = new Size(1192, 771);
             dataPage.TabIndex = 3;
-            dataPage.Text = "Your fianance";
+            dataPage.Text = "Your finances";
             dataPage.UseVisualStyleBackColor = true;
             // 
             // searchTextBox
@@ -341,14 +372,22 @@
             profileDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             profileDataGridView.AutoGenerateColumns = false;
             profileDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            profileDataGridView.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, operationDateDataGridViewTextBoxColumn1, valueDateDataGridViewTextBoxColumn1, transactionTypeDataGridViewTextBoxColumn1, amountDataGridViewTextBoxColumn1, currencyDataGridViewTextBoxColumn1, saldoAfterTransactionDataGridViewTextBoxColumn1, transactionDescriptionDataGridViewTextBoxColumn1, transactionDescriptionAdditional1DataGridViewTextBoxColumn1, transactionDescriptionAdditional2DataGridViewTextBoxColumn1, transactionDescriptionAdditional3DataGridViewTextBoxColumn1, transactionDescriptionAdditional4DataGridViewTextBoxColumn1, transactionDescriptionAdditional5DataGridViewTextBoxColumn1, transactionDescriptionAdditional6DataGridViewTextBoxColumn1, transactionDescriptionAdditional7DataGridViewTextBoxColumn1 });
+            profileDataGridView.Columns.AddRange(new DataGridViewColumn[] { CategorySelect, idDataGridViewTextBoxColumn1, Category, operationDateDataGridViewTextBoxColumn1, valueDateDataGridViewTextBoxColumn1, transactionTypeDataGridViewTextBoxColumn1, amountDataGridViewTextBoxColumn1, currencyDataGridViewTextBoxColumn1, saldoAfterTransactionDataGridViewTextBoxColumn1, transactionDescriptionDataGridViewTextBoxColumn1, transactionDescriptionAdditional1DataGridViewTextBoxColumn1, transactionDescriptionAdditional2DataGridViewTextBoxColumn1, transactionDescriptionAdditional3DataGridViewTextBoxColumn1, transactionDescriptionAdditional4DataGridViewTextBoxColumn1, transactionDescriptionAdditional5DataGridViewTextBoxColumn1, transactionDescriptionAdditional6DataGridViewTextBoxColumn1, transactionDescriptionAdditional7DataGridViewTextBoxColumn1 });
             profileDataGridView.DataSource = profileBankDataBindingSource;
             profileDataGridView.Location = new Point(3, 49);
+            profileDataGridView.MultiSelect = false;
             profileDataGridView.Name = "profileDataGridView";
-            profileDataGridView.ReadOnly = true;
             profileDataGridView.RowTemplate.Height = 25;
-            profileDataGridView.Size = new Size(1186, 580);
+            profileDataGridView.Size = new Size(1186, 719);
             profileDataGridView.TabIndex = 0;
+            profileDataGridView.CellValueChanged += profileDataGridView_CellValueChanged;
+            // 
+            // CategorySelect
+            // 
+            CategorySelect.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            CategorySelect.HeaderText = "Select Category";
+            CategorySelect.Name = "CategorySelect";
+            CategorySelect.Width = 149;
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -356,6 +395,13 @@
             idDataGridViewTextBoxColumn1.HeaderText = "Id";
             idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
             idDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // Category
+            // 
+            Category.DataPropertyName = "Category";
+            Category.HeaderText = "Category";
+            Category.Name = "Category";
+            Category.ReadOnly = true;
             // 
             // operationDateDataGridViewTextBoxColumn1
             // 
@@ -489,18 +535,214 @@
             // 
             // statisticsPage
             // 
+            statisticsPage.Controls.Add(rangeDataGroupBox);
             statisticsPage.Location = new Point(4, 34);
             statisticsPage.Name = "statisticsPage";
-            statisticsPage.Size = new Size(1192, 622);
+            statisticsPage.Size = new Size(1192, 771);
             statisticsPage.TabIndex = 4;
             statisticsPage.Text = "Your Statistics";
             statisticsPage.UseVisualStyleBackColor = true;
+            // 
+            // categoriesPage
+            // 
+            categoriesPage.Controls.Add(categoriesDataGridView);
+            categoriesPage.Controls.Add(modifyCategyGroupBox);
+            categoriesPage.Controls.Add(addNewCategoryGroupBox);
+            categoriesPage.Location = new Point(4, 34);
+            categoriesPage.Name = "categoriesPage";
+            categoriesPage.Size = new Size(1192, 771);
+            categoriesPage.TabIndex = 6;
+            categoriesPage.Text = "Your categories";
+            categoriesPage.UseVisualStyleBackColor = true;
+            // 
+            // categoriesDataGridView
+            // 
+            categoriesDataGridView.AllowUserToAddRows = false;
+            categoriesDataGridView.AllowUserToDeleteRows = false;
+            categoriesDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            categoriesDataGridView.AutoGenerateColumns = false;
+            categoriesDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            categoriesDataGridView.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, commentaryDataGridViewTextBoxColumn });
+            categoriesDataGridView.DataSource = categoryBindingSource;
+            categoriesDataGridView.Location = new Point(292, 13);
+            categoriesDataGridView.MultiSelect = false;
+            categoriesDataGridView.Name = "categoriesDataGridView";
+            categoriesDataGridView.ReadOnly = true;
+            categoriesDataGridView.RowTemplate.Height = 25;
+            categoriesDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            categoriesDataGridView.Size = new Size(897, 755);
+            categoriesDataGridView.TabIndex = 3;
+            categoriesDataGridView.RowStateChanged += categoriesDataGridView_RowStateChanged;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            idDataGridViewTextBoxColumn.Width = 53;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            nameDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            nameDataGridViewTextBoxColumn.ReadOnly = true;
+            nameDataGridViewTextBoxColumn.Width = 87;
+            // 
+            // commentaryDataGridViewTextBoxColumn
+            // 
+            commentaryDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            commentaryDataGridViewTextBoxColumn.DataPropertyName = "Commentary";
+            commentaryDataGridViewTextBoxColumn.HeaderText = "Commentary";
+            commentaryDataGridViewTextBoxColumn.Name = "commentaryDataGridViewTextBoxColumn";
+            commentaryDataGridViewTextBoxColumn.ReadOnly = true;
+            commentaryDataGridViewTextBoxColumn.Width = 145;
+            // 
+            // categoryBindingSource
+            // 
+            categoryBindingSource.DataSource = typeof(Entities.Category);
+            // 
+            // modifyCategyGroupBox
+            // 
+            modifyCategyGroupBox.Controls.Add(modifyCategoryNameTextBox);
+            modifyCategyGroupBox.Controls.Add(modifyCategoryCommentaryRichTextBox);
+            modifyCategyGroupBox.Controls.Add(deleteCategoryButton);
+            modifyCategyGroupBox.Controls.Add(modifyCategoryButton);
+            modifyCategyGroupBox.Controls.Add(modifyCategoryIdTextBox);
+            modifyCategyGroupBox.Location = new Point(9, 305);
+            modifyCategyGroupBox.Name = "modifyCategyGroupBox";
+            modifyCategyGroupBox.Size = new Size(277, 379);
+            modifyCategyGroupBox.TabIndex = 2;
+            modifyCategyGroupBox.TabStop = false;
+            modifyCategyGroupBox.Text = "Modify Category";
+            modifyCategyGroupBox.Visible = false;
+            // 
+            // modifyCategoryNameTextBox
+            // 
+            modifyCategoryNameTextBox.Location = new Point(6, 92);
+            modifyCategoryNameTextBox.Name = "modifyCategoryNameTextBox";
+            modifyCategoryNameTextBox.Size = new Size(265, 33);
+            modifyCategoryNameTextBox.TabIndex = 5;
+            // 
+            // modifyCategoryCommentaryRichTextBox
+            // 
+            modifyCategoryCommentaryRichTextBox.Location = new Point(6, 145);
+            modifyCategoryCommentaryRichTextBox.Name = "modifyCategoryCommentaryRichTextBox";
+            modifyCategoryCommentaryRichTextBox.Size = new Size(265, 99);
+            modifyCategoryCommentaryRichTextBox.TabIndex = 4;
+            modifyCategoryCommentaryRichTextBox.Text = "";
+            // 
+            // deleteCategoryButton
+            // 
+            deleteCategoryButton.Location = new Point(6, 312);
+            deleteCategoryButton.Name = "deleteCategoryButton";
+            deleteCategoryButton.Size = new Size(265, 56);
+            deleteCategoryButton.TabIndex = 3;
+            deleteCategoryButton.Text = "Delete";
+            deleteCategoryButton.UseVisualStyleBackColor = true;
+            deleteCategoryButton.Click += deleteCategoryButton_Click;
+            // 
+            // modifyCategoryButton
+            // 
+            modifyCategoryButton.Location = new Point(6, 250);
+            modifyCategoryButton.Name = "modifyCategoryButton";
+            modifyCategoryButton.Size = new Size(265, 56);
+            modifyCategoryButton.TabIndex = 1;
+            modifyCategoryButton.Text = "Modify";
+            modifyCategoryButton.UseVisualStyleBackColor = true;
+            modifyCategoryButton.Click += modifyCategoryButton_Click;
+            // 
+            // modifyCategoryIdTextBox
+            // 
+            modifyCategoryIdTextBox.Location = new Point(6, 42);
+            modifyCategoryIdTextBox.Name = "modifyCategoryIdTextBox";
+            modifyCategoryIdTextBox.ReadOnly = true;
+            modifyCategoryIdTextBox.Size = new Size(265, 33);
+            modifyCategoryIdTextBox.TabIndex = 0;
+            // 
+            // addNewCategoryGroupBox
+            // 
+            addNewCategoryGroupBox.Controls.Add(newCategoryCommentaryRichTextBox);
+            addNewCategoryGroupBox.Controls.Add(submitCategoryButton);
+            addNewCategoryGroupBox.Controls.Add(newCategoryNameTextBox);
+            addNewCategoryGroupBox.Location = new Point(9, 13);
+            addNewCategoryGroupBox.Name = "addNewCategoryGroupBox";
+            addNewCategoryGroupBox.Size = new Size(277, 286);
+            addNewCategoryGroupBox.TabIndex = 0;
+            addNewCategoryGroupBox.TabStop = false;
+            addNewCategoryGroupBox.Text = "Add New Category";
+            // 
+            // newCategoryCommentaryRichTextBox
+            // 
+            newCategoryCommentaryRichTextBox.Location = new Point(6, 89);
+            newCategoryCommentaryRichTextBox.Name = "newCategoryCommentaryRichTextBox";
+            newCategoryCommentaryRichTextBox.Size = new Size(265, 129);
+            newCategoryCommentaryRichTextBox.TabIndex = 2;
+            newCategoryCommentaryRichTextBox.Text = "";
+            newCategoryCommentaryRichTextBox.TextChanged += newCategoryCommentaryRichTextBox_TextChanged;
+            // 
+            // submitCategoryButton
+            // 
+            submitCategoryButton.Enabled = false;
+            submitCategoryButton.Location = new Point(6, 224);
+            submitCategoryButton.Name = "submitCategoryButton";
+            submitCategoryButton.Size = new Size(265, 56);
+            submitCategoryButton.TabIndex = 1;
+            submitCategoryButton.Text = "Submit";
+            submitCategoryButton.UseVisualStyleBackColor = true;
+            submitCategoryButton.Click += submitCategoryButton_Click;
+            // 
+            // newCategoryNameTextBox
+            // 
+            newCategoryNameTextBox.Location = new Point(6, 50);
+            newCategoryNameTextBox.Name = "newCategoryNameTextBox";
+            newCategoryNameTextBox.Size = new Size(265, 33);
+            newCategoryNameTextBox.TabIndex = 0;
+            newCategoryNameTextBox.TextChanged += newCategoryNameTextBox_TextChanged;
+            // 
+            // rangeDataGroupBox
+            // 
+            rangeDataGroupBox.Controls.Add(submitDateRangeButton);
+            rangeDataGroupBox.Controls.Add(toDateTimePicker);
+            rangeDataGroupBox.Controls.Add(fromDateTimePicker);
+            rangeDataGroupBox.Location = new Point(3, 3);
+            rangeDataGroupBox.Name = "rangeDataGroupBox";
+            rangeDataGroupBox.Size = new Size(448, 169);
+            rangeDataGroupBox.TabIndex = 0;
+            rangeDataGroupBox.TabStop = false;
+            rangeDataGroupBox.Text = "Date Range";
+            // 
+            // fromDateTimePicker
+            // 
+            fromDateTimePicker.Location = new Point(6, 32);
+            fromDateTimePicker.Name = "fromDateTimePicker";
+            fromDateTimePicker.Size = new Size(200, 33);
+            fromDateTimePicker.TabIndex = 0;
+            // 
+            // toDateTimePicker
+            // 
+            toDateTimePicker.Location = new Point(236, 32);
+            toDateTimePicker.Name = "toDateTimePicker";
+            toDateTimePicker.Size = new Size(200, 33);
+            toDateTimePicker.TabIndex = 1;
+            // 
+            // submitDateRangeButton
+            // 
+            submitDateRangeButton.Location = new Point(6, 91);
+            submitDateRangeButton.Name = "submitDateRangeButton";
+            submitDateRangeButton.Size = new Size(436, 59);
+            submitDateRangeButton.TabIndex = 2;
+            submitDateRangeButton.Text = "Submit";
+            submitDateRangeButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1224, 684);
+            ClientSize = new Size(1224, 833);
             Controls.Add(tabControl);
             Name = "MainForm";
             Text = "FinancialHelper";
@@ -514,6 +756,15 @@
             dataPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)profileDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)profileBankDataBindingSource).EndInit();
+            statisticsPage.ResumeLayout(false);
+            categoriesPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)categoriesDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)categoryBindingSource).EndInit();
+            modifyCategyGroupBox.ResumeLayout(false);
+            modifyCategyGroupBox.PerformLayout();
+            addNewCategoryGroupBox.ResumeLayout(false);
+            addNewCategoryGroupBox.PerformLayout();
+            rangeDataGroupBox.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -545,7 +796,26 @@
         private DataGridView profileDataGridView;
         private BindingSource profileBankDataBindingSource;
         private Button searchButton;
+        private TextBox newCategoryNameTextBox;
+        private TextBox searchTextBox;
+        private TabPage categoriesPage;
+        private GroupBox addNewCategoryGroupBox;
+        private GroupBox modifyCategyGroupBox;
+        private Button deleteCategoryButton;
+        private Button modifyCategoryButton;
+        private TextBox modifyCategoryIdTextBox;
+        private Button submitCategoryButton;
+        private RichTextBox modifyCategoryCommentaryRichTextBox;
+        private RichTextBox newCategoryCommentaryRichTextBox;
+        private DataGridView categoriesDataGridView;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn commentaryDataGridViewTextBoxColumn;
+        private BindingSource categoryBindingSource;
+        private TextBox modifyCategoryNameTextBox;
+        private DataGridViewComboBoxColumn CategorySelect;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn operationDateDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn valueDateDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn transactionTypeDataGridViewTextBoxColumn1;
@@ -560,8 +830,9 @@
         private DataGridViewTextBoxColumn transactionDescriptionAdditional5DataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn transactionDescriptionAdditional6DataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn transactionDescriptionAdditional7DataGridViewTextBoxColumn1;
-        private TextBox textBox1;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
-        private TextBox searchTextBox;
+        private GroupBox rangeDataGroupBox;
+        private Button submitDateRangeButton;
+        private DateTimePicker toDateTimePicker;
+        private DateTimePicker fromDateTimePicker;
     }
 }

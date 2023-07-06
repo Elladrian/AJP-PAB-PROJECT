@@ -1,4 +1,5 @@
 using FinancialHelper.Entities;
+using FinancialHelper.Migrations;
 using FinancialHelper.Shared;
 using FinancialHelper.Shared.Contracts;
 using FinancialHelper.Shared.Services;
@@ -9,6 +10,7 @@ namespace FinancialHelper
     public partial class MainForm : Form
     {
         List<Entities.BankData> BankDatas;
+        List<Entities.Category> Categories;
         List<Shared.BankData> ImportedBankDatas;
         int loggedUserId = 1;
 
@@ -24,7 +26,26 @@ namespace FinancialHelper
             tabControl.ItemSize = new Size(100, 50);
             #endregion
 
+            refreshYourCategoryDate();
             refreshYourProfileData();
+        }
+
+        private void refreshYourCategoryDate()
+        {
+            try
+            {
+                using (CategoryService categoryService = new())
+                {
+                    this.Categories = categoryService.GetCategories(loggedUserId);
+                    this.categoriesDataGridView.DataSource = new BindingList<Entities.Category>(this.Categories);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occured upon downloading your categories data. More details:\n{ex.Message}", "Error");
+            }
+
+            this.categoriesDataGridView.Refresh();
         }
 
         private void refreshYourProfileData()
@@ -33,7 +54,15 @@ namespace FinancialHelper
             {
                 using (BankDataService bankDataService = new())
                 {
+                    ((DataGridViewComboBoxColumn)this.profileDataGridView.Columns[0]).Items.Clear();
+
+                    foreach (Category category in this.Categories)
+                    {
+                        ((DataGridViewComboBoxColumn)this.profileDataGridView.Columns[0]).Items.Add(category.Name);
+                    }
+
                     this.BankDatas = bankDataService.GetUserData(loggedUserId);
+
                     this.profileDataGridView.DataSource = new BindingList<Entities.BankData>(this.BankDatas);
                 }
             }
@@ -156,6 +185,128 @@ namespace FinancialHelper
             catch (Exception ex)
             {
                 MessageBox.Show($"Error occured upon adding data to your profile. More details:\n{ex.Message}", "Error");
+            }
+        }
+
+        private void submitCategoryButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (CategoryService categoryService = new())
+                {
+                    categoryService.CreateNewCategory(
+                        newCategoryNameTextBox.Text,
+                        newCategoryCommentaryRichTextBox.Text,
+                        loggedUserId);
+                }
+
+                MessageBox.Show($"New category has benn successfully added", "Information");
+                refreshYourCategoryDate();
+                refreshYourProfileData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occured upon adding new category. More details:\n{ex.Message}", "Error");
+            }
+            finally
+            {
+                newCategoryCommentaryRichTextBox.Text = "";
+                newCategoryNameTextBox.Text = "";
+            }
+        }
+
+        private void newCategoryNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (newCategoryCommentaryRichTextBox.Text != "" && newCategoryNameTextBox.Text != "") submitCategoryButton.Enabled = true;
+        }
+
+        private void newCategoryCommentaryRichTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (newCategoryCommentaryRichTextBox.Text != "" && newCategoryNameTextBox.Text != "") submitCategoryButton.Enabled = true;
+        }
+
+        private void categoriesDataGridView_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            if (categoriesDataGridView.SelectedRows.Count > 0)
+            {
+                modifyCategyGroupBox.Visible = true;
+
+                modifyCategoryIdTextBox.Text = e.Row.Cells[0].Value.ToString();
+                modifyCategoryNameTextBox.Text = e.Row.Cells[1].Value.ToString();
+                modifyCategoryCommentaryRichTextBox.Text = e.Row.Cells[2].Value.ToString();
+            }
+        }
+
+        private void modifyCategoryButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (CategoryService categoryService = new())
+                {
+                    categoryService.ModifyCategory(
+                        Int32.Parse(modifyCategoryIdTextBox.Text),
+                        modifyCategoryNameTextBox.Text,
+                        modifyCategoryCommentaryRichTextBox.Text,
+                        loggedUserId);
+
+                    refreshYourCategoryDate();
+                    refreshYourProfileData();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occured upon editing your category. More details:\n{ex.Message}", "Error");
+            }
+        }
+
+        private void deleteCategoryButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (CategoryService categoryService = new())
+                {
+                    categoryService.DeleteCategory(
+                        Int32.Parse(modifyCategoryIdTextBox.Text),
+                        loggedUserId);
+
+                    refreshYourCategoryDate();
+                    refreshYourProfileData();
+
+                    modifyCategyGroupBox.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occured upon deliting your category. More details:\n{ex.Message}", "Error");
+            }
+        }
+
+        private void profileDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.profileDataGridView.Rows.Count > 0)
+            {
+                try
+                {
+                    string newCategory = this.profileDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    var category = this.Categories.Where(c => c.Name == newCategory).FirstOrDefault();
+                    var dataId = Int32.Parse(this.profileDataGridView.Rows[e.RowIndex].Cells[1].Value.ToString());
+                    var data = this.BankDatas.Where(bd => bd.Id == dataId).FirstOrDefault();
+                    if (category.Id != data.CategoryId)
+                    {
+                        using (BankDataService bankDataService = new())
+                        {
+                            bankDataService.ModifyCategory(dataId, category.Id);
+
+                            this.BankDatas = bankDataService.GetUserData(loggedUserId);
+                            this.profileDataGridView.DataSource = new BindingList<Entities.BankData>(this.BankDatas);
+                            this.profileDataGridView.Refresh();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error occured upon modificating data category. More details:\n{ex.Message}", "Error");
+                }
             }
         }
     }

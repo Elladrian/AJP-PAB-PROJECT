@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FinancialHelper.Entities
+﻿namespace FinancialHelper.Entities
 {
     public class User
     {
@@ -13,5 +7,8 @@ namespace FinancialHelper.Entities
         public string? Surname { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+
+        public virtual List<Category> Categories { get; set; } = new();
+        public virtual List<BankData> BankDatas { get; set; } = new();
     }
 }

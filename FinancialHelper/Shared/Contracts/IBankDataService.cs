@@ -11,7 +11,7 @@ namespace FinancialHelper.Shared.Contracts
     {
         List<Entities.BankData> AddDataToDB(List<Shared.BankData> bankDatas, int userId, int? categoryId);
         List<Entities.BankData> GetUserData(int userId);
-        Entities.BankData ChangeCategory(Entities.BankData bankData, int categoryId, int userId);
+        Entities.BankData ModifyCategory(int bankDataId, int categoryId);
         void Dispose();
         void Dispose(bool disposing);
     }

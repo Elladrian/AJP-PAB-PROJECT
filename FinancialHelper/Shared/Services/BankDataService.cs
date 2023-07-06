@@ -1,12 +1,6 @@
 ﻿using FinancialHelper.Entities;
 using FinancialHelper.Shared.Contracts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialHelper.Shared.Services
 {
@@ -51,7 +45,25 @@ namespace FinancialHelper.Shared.Services
                 databaseContext.AddRange(addedRows);
                 databaseContext.SaveChanges();
 
+                
                 return addedRows;
+            }
+        }
+
+        public Entities.BankData ModifyCategory(int bankDataId, int categoryId)
+        {
+            using(DatabaseContext databaseContext = new())
+            {
+                var category = databaseContext.Categories.FirstOrDefault(c => c.Id == categoryId);
+
+                Entities.BankData modifiedData = databaseContext.BankDatas
+                    .Where(bd => bd.Id == bankDataId)
+                    .FirstOrDefault();
+
+                modifiedData.Category = category;
+                databaseContext.SaveChanges();
+
+                return modifiedData;
             }
         }
 
@@ -60,47 +72,39 @@ namespace FinancialHelper.Shared.Services
             using(DatabaseContext databaseContext = new())
             {
                 return databaseContext.BankDatas
+                    .Include(bd => bd.Category)
+                    .OrderByDescending(bd => bd.OperationDate)
                     .Where(bd => bd.UserId == userId)
                     .ToList();
             }
-        }
-
-        public Entities.BankData ChangeCategory(Entities.BankData bankData, int categoryId, int userId)
-        {
-            throw new NotImplementedException();
         }
 
         public List<Entities.BankData> GetSearchedData(string searchedPhrase, int userId)
         {
             using(DatabaseContext databaseContext = new())
             {
-                var result = databaseContext.BankDatas.ToList();
-                List<Entities.BankData> searchResult = new();
+                var result = databaseContext.BankDatas
+                    .Where(bd => (
+                        bd.Id + " " +
+                        bd.OperationDate + " " +
+                        bd.ValueDate + " " +
+                        bd.TransactionType + " " +
+                        bd.Amount + " " +
+                        bd.Currency + " " +
+                        bd.SaldoAfterTransaction + " " +
+                        bd.TransactionDescription + " " +
+                        bd.TransactionDescriptionAdditional1 + " " +
+                        bd.TransactionDescriptionAdditional2 + " " +
+                        bd.TransactionDescriptionAdditional3 + " " +
+                        bd.TransactionDescriptionAdditional4 + " " +
+                        bd.TransactionDescriptionAdditional5 + " " +
+                        bd.TransactionDescriptionAdditional6 + " " +
+                        bd.TransactionDescriptionAdditional7)
+                        .ToLower()
+                        .Contains(searchedPhrase.ToLower()))
+                    .ToList();
 
-                foreach(var bd in result)
-                {
-                    string s = string.Join(" ",
-                        bd.Id.ToString(),
-                        bd.OperationDate,
-                        bd.ValueDate.ToString(),
-                        bd.TransactionType,
-                        bd.Amount.ToString(),
-                        bd.Currency,
-                        bd.SaldoAfterTransaction.ToString(),
-                        bd.TransactionDescription,
-                        bd.TransactionDescriptionAdditional1,
-                        bd.TransactionDescriptionAdditional2,
-                        bd.TransactionDescriptionAdditional3,
-                        bd.TransactionDescriptionAdditional4,
-                        bd.TransactionDescriptionAdditional5,
-                        bd.TransactionDescriptionAdditional6,
-                        bd.TransactionDescriptionAdditional7);
-                    var test = s.ToLower().Contains(searchedPhrase.ToLower());
-
-                    if (test) searchResult.Add(bd);
-                }
-
-                return searchResult;
+                return result;
             }
         }
 
