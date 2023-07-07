@@ -16,8 +16,9 @@ namespace FinancialHelper
         List<Shared.BankData> ImportedBankDatas;
         int loggedUserId = 1;
 
-        public MainForm()
+        public MainForm(int loggedUserId)
         {
+            this.loggedUserId = loggedUserId;
             InitializeComponent();
         }
 
@@ -326,7 +327,7 @@ namespace FinancialHelper
                             loggedUserId);
 
 
-                        foreach(var series in categoriesChart.Series)
+                        foreach (var series in categoriesChart.Series)
                         {
                             series.Points.Clear();
                         }
@@ -336,14 +337,14 @@ namespace FinancialHelper
                         categoriesChart.Titles.Add("Category Chart");
                         foreach (var data in result)
                         {
-                            if(data.AmountMinus != 0)
+                            if (data.AmountMinus != 0)
                             {
                                 categoriesChart.Series.Add(new Series(data.Name == null ? "uncategorized" + " (minus)" : data.Name + " (minus)"));
                                 categoriesChart.Series[data.Name == null ? "uncategorized" + " (minus)" : data.Name + " (minus)"].IsValueShownAsLabel = true;
                                 categoriesChart.Series[data.Name == null ? "uncategorized" + " (minus)" : data.Name + " (minus)"].Points.AddXY(data.Name == null ? " " : data.Name, data.AmountMinus);
                             }
 
-                            if(data.AmountPlus != 0)
+                            if (data.AmountPlus != 0)
                             {
                                 categoriesChart.Series.Add(new Series(data.Name == null ? "uncategorized" + " (plus)" : data.Name + " (plus)"));
                                 categoriesChart.Series[data.Name == null ? "uncategorized" + " (plus)" : data.Name + " (plus)"].IsValueShownAsLabel = true;

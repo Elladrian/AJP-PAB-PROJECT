@@ -36,7 +36,7 @@ namespace FinancialHelper.Shared.Services
                         CategoryId = categoryId,
                     };
 
-                    if (databaseContext.BankDatas.Contains(bankDataEntity))
+                    if (!databaseContext.BankDatas.Contains(bankDataEntity))
                     {
                         addedRows.Add(bankDataEntity);
                     }
@@ -84,8 +84,10 @@ namespace FinancialHelper.Shared.Services
             using(DatabaseContext databaseContext = new())
             {
                 var result = databaseContext.BankDatas
+                    .Include(bd => bd.Category)
                     .Where(bd => (
                         bd.Id + " " +
+                        bd.Category!.Name + " " +
                         bd.OperationDate + " " +
                         bd.ValueDate + " " +
                         bd.TransactionType + " " +

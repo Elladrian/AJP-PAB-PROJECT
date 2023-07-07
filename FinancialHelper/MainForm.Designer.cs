@@ -32,7 +32,6 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             tabControl = new TabControl();
-            profilePage = new TabPage();
             importPage = new TabPage();
             addToProfileButton = new Button();
             importCSVProgressBar = new ProgressBar();
@@ -117,7 +116,6 @@
             // tabControl
             // 
             tabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tabControl.Controls.Add(profilePage);
             tabControl.Controls.Add(importPage);
             tabControl.Controls.Add(dataPage);
             tabControl.Controls.Add(statisticsPage);
@@ -128,15 +126,6 @@
             tabControl.SelectedIndex = 0;
             tabControl.Size = new Size(1200, 809);
             tabControl.TabIndex = 0;
-            // 
-            // profilePage
-            // 
-            profilePage.Location = new Point(4, 34);
-            profilePage.Name = "profilePage";
-            profilePage.Size = new Size(1192, 771);
-            profilePage.TabIndex = 5;
-            profilePage.Text = "Your profile";
-            profilePage.UseVisualStyleBackColor = true;
             // 
             // importPage
             // 
@@ -550,12 +539,11 @@
             // 
             // categoriesChart
             // 
-            categoriesChart.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             chartArea1.Name = "ChartArea1";
             categoriesChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             categoriesChart.Legends.Add(legend1);
-            categoriesChart.Location = new Point(9, 178);
+            categoriesChart.Location = new Point(9, 172);
             categoriesChart.Name = "categoriesChart";
             categoriesChart.Size = new Size(1171, 590);
             categoriesChart.TabIndex = 1;
@@ -568,16 +556,17 @@
             rangeDataGroupBox.Controls.Add(fromDateTimePicker);
             rangeDataGroupBox.Location = new Point(3, 3);
             rangeDataGroupBox.Name = "rangeDataGroupBox";
-            rangeDataGroupBox.Size = new Size(448, 169);
+            rangeDataGroupBox.Size = new Size(651, 169);
             rangeDataGroupBox.TabIndex = 0;
             rangeDataGroupBox.TabStop = false;
             rangeDataGroupBox.Text = "Date Range";
             // 
             // submitDateRangeButton
             // 
-            submitDateRangeButton.Location = new Point(6, 91);
+            submitDateRangeButton.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            submitDateRangeButton.Location = new Point(385, 32);
             submitDateRangeButton.Name = "submitDateRangeButton";
-            submitDateRangeButton.Size = new Size(436, 59);
+            submitDateRangeButton.Size = new Size(234, 115);
             submitDateRangeButton.TabIndex = 2;
             submitDateRangeButton.Text = "Submit";
             submitDateRangeButton.UseVisualStyleBackColor = true;
@@ -585,16 +574,16 @@
             // 
             // toDateTimePicker
             // 
-            toDateTimePicker.Location = new Point(236, 32);
+            toDateTimePicker.Location = new Point(6, 114);
             toDateTimePicker.Name = "toDateTimePicker";
-            toDateTimePicker.Size = new Size(200, 33);
+            toDateTimePicker.Size = new Size(350, 33);
             toDateTimePicker.TabIndex = 1;
             // 
             // fromDateTimePicker
             // 
             fromDateTimePicker.Location = new Point(6, 32);
             fromDateTimePicker.Name = "fromDateTimePicker";
-            fromDateTimePicker.Size = new Size(200, 33);
+            fromDateTimePicker.Size = new Size(350, 33);
             fromDateTimePicker.TabIndex = 0;
             // 
             // categoriesPage
@@ -764,7 +753,7 @@
             ClientSize = new Size(1224, 833);
             Controls.Add(tabControl);
             Name = "MainForm";
-            Text = "FinancialHelper";
+            Text = "Financial Helper - Main Window";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             tabControl.ResumeLayout(false);
@@ -806,7 +795,6 @@
         private DataGridViewTextBoxColumn transactionDescriptionAdditional1DataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn transactionDescriptionAdditional2DataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn transactionDescriptionAdditional3DataGridViewTextBoxColumn;
-        private TabPage profilePage;
         private TabPage dataPage;
         private TabPage statisticsPage;
         private DataGridViewTextBoxColumn transactionDescriptionAdditional4DataGridViewTextBoxColumn;
