@@ -1,7 +1,4 @@
 using FinancialHelper.Entities;
-using FinancialHelper.Migrations;
-using FinancialHelper.Shared;
-using FinancialHelper.Shared.Contracts;
 using FinancialHelper.Shared.Services;
 using System.ComponentModel;
 using System.Data;

@@ -1,10 +1,5 @@
-﻿using BCrypt.Net;
-using FinancialHelper.Entities;
+﻿using FinancialHelper.Entities;
 using FinancialHelper.Shared.Contracts;
-using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using static BCrypt.Net.BCrypt;
 
 namespace FinancialHelper.Shared.Services
